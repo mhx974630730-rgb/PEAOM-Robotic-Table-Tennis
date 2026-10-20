@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>mhx_msg_pkg</name>
+  <version>0.1.0</version>
+  <description>ROS messages for perception-error-aware robotic table-tennis experiments developed at the School of Astronautics, Harbin Institute of Technology.</description>
+
+  <maintainer email="19b904043@stu.hit.edu.cn">Hongxu Ma</maintainer>
+  <license>Apache-2.0</license>
+
+  <url type="website">https://en.hit.edu.cn/</url>
+  <author email="19b904043@stu.hit.edu.cn">Hongxu Ma</author>
+  <author email="fanjianyin_q@foxmail.com">Jianyin Fan</author>
+  <author email="haoran2400@outlook.com">Haoran Xu</author>
+  <author email="wangqiang@hit.edu.cn">Qiang Wang</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+</package>

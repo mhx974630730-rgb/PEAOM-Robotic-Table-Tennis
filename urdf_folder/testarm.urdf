@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<robot name="mechanical_arm">
+
+  <!-- 橙白配色材质定义 -->
+  <material name="orange"> <color rgba="0.9 0.5 0.1 1.0"/> </material>
+  <material name="white">  <color rgba="1.0 1.0 1.0 1.0"/> </material>
+  <!-- ==================== 新增：固定世界基座（无视觉显示） ==================== -->
+  <link name="base_link">
+    <!-- 不定义 visual 和 collision，即完全不可见、无碰撞 -->
+    <inertial>
+      <mass value="0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  <!-- ==================== 新增：滑轨移动关节（长度1米，沿X轴移动） ==================== -->
+  <joint name="rail_joint" type="prismatic">
+    <parent link="base_link"/>
+    <child link="link0"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>          <!-- 底座起始位置（可根据需要调整） -->
+    <axis xyz="1 0 0"/>                         <!-- 沿 X 轴滑动 -->
+    <limit lower="0.0" upper="1.0" effort="100" velocity="0.5"/>
+  </joint>
+  <!-- ==================== 固定底盘 link0 ==================== -->
+  <link name="link0">
+    <visual>
+      <geometry><cylinder radius="0.095" length="0.08"/></geometry>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.095" length="0.08"/></geometry>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+    <mass value="1.0"/>
+    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+  </inertial>
+  </link>
+
+  <!-- ==================== joint0 (绕Z) ==================== -->
+  <joint name="joint0" type="revolute">
+    <parent link="link0"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.08" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-2.094" upper="2.094" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link1 竖直圆柱 ==================== -->
+  <link name="link1">
+    <visual>
+      <geometry><cylinder radius="0.085" length="0.18"/></geometry>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.085" length="0.18"/></geometry>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+  </inertial>
+  </link>
+
+  <!-- ==================== joint1 ==================== -->
+  <joint name="joint1" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0.16 0 0.10" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.094" upper="2.094" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link2 ==================== -->
+  <link name="link2">
+    <!-- 下圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.075" length="0.21"/></geometry>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.075" length="0.21"/></geometry>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+    </collision>
+
+    <!-- 中圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.05" length="0.67"/></geometry>
+      <origin xyz="0 0 0.36" rpy="0 0 0"/>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.05" length="0.67"/></geometry>
+      <origin xyz="0 0 0.36" rpy="0 0 0"/>
+    </collision>
+
+    <!-- 上圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.055" length="0.14"/></geometry>
+      <origin xyz="0 0 0.7" rpy="0 1.5708 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.055" length="0.14"/></geometry>
+      <origin xyz="0 0 0.7" rpy="0 1.5708 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== joint2 ==================== -->
+  <joint name="joint2" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="-0.12 0 0.7" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.094" upper="2.094" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link3 ==================== -->
+  <link name="link3">
+    <!-- 下圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.055" length="0.10"/></geometry>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.055" length="0.10"/></geometry>
+      <origin xyz="0 0 0" rpy="0 1.5708 0"/>
+    </collision>
+
+    <!-- 中圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.04" length="0.586"/></geometry>
+      <origin xyz="0 0 0.298" rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.04" length="0.586"/></geometry>
+      <origin xyz="0 0 0.298" rpy="0 0 0"/>
+    </collision>
+
+    <!-- 上圆柱 -->
+    <visual>
+      <geometry><cylinder radius="0.045" length="0.15"/></geometry>
+      <origin xyz="0 0 0.586" rpy="0 1.5708 0"/>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.045" length="0.15"/></geometry>
+      <origin xyz="0 0 0.586" rpy="0 1.5708 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== joint3 ==================== -->
+  <joint name="joint3" type="revolute">
+    <parent link="link3"/>
+    <child link="link4"/>
+    <origin xyz="0.069 0 0.586" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-2.094" upper="2.094" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link4 ==================== -->
+  <link name="link4">
+    <visual>
+      <geometry><cylinder radius="0.045" length="0.11"/></geometry>
+      <origin xyz="0.045 0 0" rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.04" length="0.11"/></geometry>
+      <origin xyz="0.045 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== joint4 ==================== -->
+  <joint name="joint4" type="revolute">
+    <parent link="link4"/>
+    <child link="link5"/>
+    <origin xyz="0.045 0 0.055" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.1416" upper="3.1416" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link5 ==================== -->
+  <link name="link5">
+    <visual>
+      <geometry><cylinder radius="0.045" length="0.10"/></geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <material name="orange"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.045" length="0.10"/></geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== joint5 ==================== -->
+  <joint name="joint5" type="revolute">
+    <parent link="link5"/>
+    <child link="link6"/>
+    <origin xyz="0 0.05 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.1416" upper="3.1416" effort="100" velocity="1.0"/>
+  </joint>
+
+  <!-- ==================== link6 法兰盘 ==================== -->
+  <link name="link6">
+    <visual>
+      <geometry><cylinder radius="0.0375" length="0.03"/></geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.0375" length="0.03"/></geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="0.1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <!-- ==================== joint6 ==================== -->
+  <joint name="joint6" type="fixed">
+    <parent link="link6"/>
+    <child link="racket"/>
+    <origin xyz="0. 0.03 0" rpy="1.57 0 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+   <!-- ==================== link7 球拍 ==================== -->
+  <link name="racket">
+    <visual>
+      <geometry><cylinder radius="0.15" length="0.03"/></geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.15" length="0.03"/></geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+    <!-- 一个更合理的质量，比如 0.2 kg -->
+    <mass value="1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 惯性张量，单位是 kg*m² -->
+    <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+    </inertial>
+  </link>
+
+</robot>

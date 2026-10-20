@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<robot name="tinnestable.urdf">
+  <material name="black">
+    <color rgba="0.3 0.3 0.3 1.0"/>
+  </material>
+  <material name="white1">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <!-- 桌面主体 -->
+  <link name="baseLink">
+    <contact>
+      <lateral_friction value="0.01"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <mass value="0.0"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <geometry>
+        <box size="1.6 0.8 0.04"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <geometry>
+        <box size="1.6 0.8 0.04"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 桌腿（与之前相同） -->
+  <link name="legs">
+    <contact>
+      <lateral_friction value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <mass value="0.0"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.45 -0.3 0.29"/>
+      <geometry>
+        <box size="0.1 0.1 0.58"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.45 0.3 0.29"/>
+      <geometry>
+        <box size="0.1 0.1 0.58"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.45 -0.3 0.29"/>
+      <geometry>
+        <box size="0.1 0.1 0.58"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.45 0.3 0.29"/>
+      <geometry>
+        <box size="0.1 0.1 0.58"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <!-- 球网：修正视觉宽度为0.8（与桌面宽一致） -->
+  <link name="net">
+    <contact>
+      <lateral_friction value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <mass value="0.0"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <!--
+      Collision guard for high-speed balls.
+
+      The table is loaded at z=-0.68 m and its existing collision top is
+      z=-0.06 m in world coordinates.  The old net collision occupied only
+      z=[0.04295, 0.10205] m, leaving a 0.10295 m opening below the net.
+      This box keeps the original table collision height unchanged, overlaps
+      it by 5 mm, and preserves the top of the visible net.  Its 50 mm depth
+      along x also reduces discrete-time tunnelling at the 240 Hz simulation
+      step used by sim_env.py.
+    -->
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.5535"/>
+      <geometry>
+        <box size="0.05 0.8 0.182"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <geometry>
+        <box size="0.01 0.8 0.0891"/>   <!-- 宽度改为0.8 -->
+      </geometry>
+      <material name="white1"/>
+    </visual>
+  </link>
+
+  <!-- 桌面条纹：替换原STL为简单几何体（两条白色细线表示边线和中线） -->
+  <link name="tableline">
+    <contact>
+      <lateral_friction value="1.0"/>
+    </contact>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <mass value="0.0"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.68"/>
+      <geometry>
+        <box size="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+    <!-- 边线：沿长边，位于边缘 -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0.4 0.70"/>   <!-- 上边缘 -->
+      <geometry>
+        <box size="1.6 0.02 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 -0.4 0.70"/>  <!-- 下边缘 -->
+      <geometry>
+        <box size="1.6 0.02 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0.0 0.70"/>
+      <geometry>
+        <box size="1.6 0.02 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+    <!-- 中线：沿宽方向，位于中间 -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.70"/>
+      <geometry>
+        <box size="0.02 0.8 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="0.8 0 0.70"/>
+      <geometry>
+        <box size="0.02 0.8 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.8 0 0.70"/>
+      <geometry>
+        <box size="0.02 0.8 0.01"/>
+      </geometry>
+      <material name="white1"/>
+    </visual>
+  </link>
+
+  <!-- 关节定义（与之前相同，位置微调适应条纹高度） -->
+  <joint name="joint1" type="fixed">
+    <origin xyz="0 0 0.1525" rpy="0 0 0"/>
+    <parent link="baseLink"/>
+    <child link="net"/>
+  </joint>
+  <joint name="joint2" type="fixed">
+    <origin xyz="0 0 0.0" rpy="0 0 0"/>
+    <parent link="baseLink"/>
+    <child link="legs"/>
+  </joint>
+  <joint name="joint3" type="fixed">
+    <origin xyz="0 0 0.0" rpy="0 0 0"/>
+    <parent link="baseLink"/>
+    <child link="tableline"/>
+  </joint>
+</robot>

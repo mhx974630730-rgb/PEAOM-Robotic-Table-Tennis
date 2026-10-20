@@ -1,0 +1,8 @@
+numpy
+scipy
+torch
+pybullet
+opencv-python
+pyserial
+matplotlib
+Pillow

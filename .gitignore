@@ -1,0 +1,36 @@
+__pycache__/
+*.py[cod]
+*.so
+*.dll
+.vscode/
+.idea/
+
+# Generated training and evaluation outputs
+sim_and_real3/train_data/
+sim_and_real3/physical_data/
+sim_and_real3/experiment_logs/
+sim_and_real3/loss_data/
+sim_and_real3/reward_log.csv
+sim_and_real3/debug_*.csv
+sim_and_real3/models/**/sim_critic*_weights.pth
+sim_and_real3/models/**/real_*_weights.pth
+sim_and_real3/models/**/train_count.txt
+sim_and_real3/models/**/*.tmp
+
+# Camera and calibration runtime output
+camera_pram_dec/Camera/log/
+camera_pram_dec/left/
+camera_pram_dec/right/
+camera_pram_dec/wc/
+Camera/
+**/mvsdk.py
+**/*.mvdat
+pram_jz/data/linear_correction.npz
+pram_jz/data/calibration_data_accumulated.npz
+pram_jz/data/calibration_data_accumulated.json
+sys_pram_dec/tra_folder/trajectory_*.npz
+sys_pram_dec/tra_folder/trajectory_*.json
+
+# OS/editor files
+.DS_Store
+Thumbs.db

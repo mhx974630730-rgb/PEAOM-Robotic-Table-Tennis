@@ -1,0 +1,5 @@
+Physics Parameter Fitting Results
+================================
+Number of files: 10
+Gravity g = 10.1761 ± 1.1527 m/s²
+Restitution e = 0.9752 ± 0.0377

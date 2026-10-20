@@ -1,0 +1,5 @@
+geometry_msgs/Point target_point
+geometry_msgs/Quaternion target_orientation
+float64 hit_time
+float64 duration
+float64 vec

@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated manuscript."
+title: "PEAOM for Robotic Table Tennis"
+type: software
+version: 1.0.0
+date-released: 2026-10-10
+license: Apache-2.0
+authors:
+  - family-names: "Ma"
+    given-names: "Hongxu"
+    email: "19b904043@stu.hit.edu.cn"
+    affiliation: "School of Astronautics, Harbin Institute of Technology"
+  - family-names: "Fan"
+    given-names: "Jianyin"
+    email: "fanjianyin_q@foxmail.com"
+    affiliation: "School of Astronautics, Harbin Institute of Technology"
+  - family-names: "Xu"
+    given-names: "Haoran"
+    email: "haoran2400@outlook.com"
+    affiliation: "School of Astronautics, Harbin Institute of Technology"
+  - family-names: "Wang"
+    given-names: "Qiang"
+    email: "wangqiang@hit.edu.cn"
+    affiliation: "School of Astronautics, Harbin Institute of Technology"
+preferred-citation:
+  type: unpublished
+  title: "Perception-Error-Aware Observation Modeling for Zero-Shot Sim-to-Real Control of Robotic Table Tennis"
+  authors:
+    - family-names: "Ma"
+      given-names: "Hongxu"
+    - family-names: "Fan"
+      given-names: "Jianyin"
+    - family-names: "Xu"
+      given-names: "Haoran"
+    - family-names: "Wang"
+      given-names: "Qiang"
+  year: 2026
+repository-code: https://github.com/mhx974630730-rgb/PEAOM-Robotic-Table-Tennis

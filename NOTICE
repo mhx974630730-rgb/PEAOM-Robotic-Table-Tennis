@@ -1,0 +1,12 @@
+PEAOM for Robotic Table Tennis
+Copyright 2026 the PEAOM authors
+
+Developed in the Department of Control Science and Engineering,
+School of Astronautics, Harbin Institute of Technology.
+
+This product includes software developed by the PEAOM authors and is
+licensed under the Apache License, Version 2.0.
+
+Manufacturer-provided robot communication source code, the physical robot
+actuation bridge, camera SDK components, and device-specific camera profiles
+are not distributed as part of this product.
